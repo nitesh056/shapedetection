@@ -14,7 +14,7 @@ cv2.createTrackbar("U-H", "Trackbars", 180, 180, nothing)
 cv2.createTrackbar("U-S", "Trackbars", 255, 255, nothing)
 cv2.createTrackbar("U-V", "Trackbars", 255, 255, nothing)
 
-
+shape = ""
 while True:
     _, frame = cap.read()
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -33,6 +33,7 @@ while True:
 
     contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+    
     for cnt in contours:
         area = cv2.contourArea(cnt)
         approx = cv2.approxPolyDP(cnt, 0.02*cv2.arcLength(cnt, True), True)
@@ -42,11 +43,18 @@ while True:
         if area > 400:
             cv2.drawContours(frame, [approx], 0, (0, 0, 0), 5)
             if len(approx) == 3:
-                print("Triangle")
+                if shape != "Triangle":
+                    shape = "Triangle"
+                    print(shape)
             elif len(approx) == 4:
-                print("Rectangle")
+                if shape != "Rectangle":
+                    shape = "Rectangle"
+                    print(shape)
             elif 10 < len(approx) < 20:
-                print("Circle")
+                if shape != "Circle":
+                    shape = "Circle"
+                    print(shape)
+        
 
     cv2.imshow("Frame", frame)
     cv2.imshow("Mask", mask)
