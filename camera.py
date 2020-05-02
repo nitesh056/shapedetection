@@ -4,21 +4,20 @@ import numpy as np
 
 class VideoCamera(object):
     def __init__(self):
-       self.video = cv2.VideoCapture(1)
+       self.video = cv2.VideoCapture(0)
        self.shape = "No shape detected"
 
     def __del__(self):
         self.video.release()
-        self.video.destoryAllWindows()
 
     def get_frame(self):
         _, frame = self.video.read()
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)     
         height = frame.shape[0]
         width = frame.shape[1]
         h_height = int(height / 2)
         h_width = int(width / 2)
-        cv2.rectangle(frame, (h_width+2, h_height+2), (h_width+2, h_height+2), (255, 0, 0), 2)
+        cv2.rectangle(frame, (h_width+2, h_height+2), (h_width+2, h_height+2), (0, 255, 0), 2)
         px = frame[h_height, h_width]
         px_array = np.uint8([[px]])
         px_hsv = cv2.cvtColor(px_array, cv2.COLOR_BGR2HSV)
@@ -49,10 +48,6 @@ class VideoCamera(object):
                     self.shape = "Triangle"
                 elif len(approx) == 4:
                     self.shape = "Rectangle"
-                elif len(approx) == 5:
-                    self.shape = "Pentagon"
-                elif len(approx) == 6:
-                    self.shape = "Hexagon"
                 elif 10 < len(approx) < 20:
                     self.shape = "Circle"
 
