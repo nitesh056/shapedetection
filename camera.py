@@ -93,3 +93,6 @@ class VideoCamera(object):
         self.lower_right_point = self.half_height + self.five_percent_height, self.half_width + self.five_percent_width
 
         self.all_points = [self.center_point,self.upper_left_point, self.upper_right_point, self.lower_left_point, self.lower_right_point]
+
+    def getShape(self):
+        return self.shape

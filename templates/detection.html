@@ -1,6 +1,71 @@
 {% extends "base.html" %}
 {% block title %}Shape detection{% endblock %}
 {% block content %}
-    <!-- <img src="{{ url_for('video_feed') }}" width="50%"> -->
-    <img src="static/media/video_feed.jpg" width="50%">
+    <div class="container-fluid">
+        <div class="row my-3">
+            <div class="col-md">
+                <!-- <img src="{{ url_for('video_feed') }}" id="videofeed" width="100%"> -->
+                <img src="static/media/video_feed.jpg" height="553px" width="100%">
+                <button class="btn btn-primary mt-3" id="start_detection">Start Detection</button>
+            </div>
+            <div class="col-md" id="right">
+                <div class="row" id="from_response">
+                    <div class="col-sm-8">
+                        <div class="row py-2">
+                            <div class="col-sm">
+                                <img src="static/media/trafficsign.png" width="100%">
+                                <p class="sign-name text-center">trafficsign 1</p>
+                            </div>
+                            <div class="col-sm">
+                                <img src="static/media/trafficsign.png" width="100%">
+                                <p class="sign-name text-center">trafficsign 1</p>
+                            </div>
+                        </div>
+                        <div class="row py-3">
+                            <div class="col-sm">
+                                <img src="static/media/trafficsign.png" width="100%">
+                                <p class="sign-name text-center">trafficsign 1</p>
+                            </div>
+                            <div class="col-sm">
+                                <img src="static/media/trafficsign.png" width="100%">
+                                <p class="sign-name text-center">trafficsign 1</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 px-3">
+                        <div class="card p-2 h-100">
+                            <h3 class="text-center">Description</h3>
+                            <p id="text">
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary float-md-right mt-3" id="close_result">Close</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block ajaxScriptLink %}
+<script type="text/javascript">
+    $(function () {
+        $('#start_detection').bind('click', function () {
+            $.ajax({
+                url: "/get_json",
+                type: "POST",
+                success: function(resp){
+                    $("#from_response").remove();
+                    $("#right").prepend(resp.data);
+                    $("#close_result").show();
+                }
+            });
+        });
+
+        $("#close_result").click(function () {
+            $("#from_response").remove();
+            $("#close_result").hide();
+        });
+    });
+</script>
 {% endblock %}
