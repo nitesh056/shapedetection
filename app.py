@@ -7,6 +7,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/detection')
+def start_detection():
+    return render_template('detection.html')
+
 def gen(camera):
     while True:
         video_frame = camera.get_frame()

@@ -1,14 +1,18 @@
-<!DOCTYPE HTML>
-<html>
-
-<head>
-    <title>Shape detection</title>
-</head>
-
-<body>
-    <img src="{{ url_for('video_feed') }}" width="50%">
-    <script>
-        
-    </script>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Traffic Sign Shape Detector{% endblock %}
+{% block content %}
+    <header>
+        <div class="container h-100 w-auto">
+            <div class="landing h-100 align-items-center justify-content-center text-center">
+                <h1 class="font-weight-bold m-0">ABOUT THIS SYSTEM</h1>
+                <hr class="divider m-2" />
+                <p class="">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex ipsum nostrum corporis,
+                    possimus voluptatibus eveniet illo pariatur iure ratione placeat odio aliquid
+                    perferendis dolor dicta totam, sint neque voluptatem adipisci.
+                </p>
+                <a class="btn btn-xl btn-primary mt-5" href="/detection">Start Detection</a>
+            </div>
+        </div>
+    </header>
+{% endblock %}
