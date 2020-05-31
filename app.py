@@ -27,17 +27,15 @@ def start_detection():
 
 def gen():
     cap=cv2.VideoCapture(0)
-
     while True:
-        try:
-            _, img = cap.read()
-            run_frame(cap)
-            # video_frame = camera.get_frame()
-            # yield (b'--frame\r\n'
-            #     b'Content-Type: image/jpeg\r\n\r\n' + video_frame + b'\r\n\r\n')
-        except:
-            print("Exception")
-            # camera = VideoCamera()
+        _, img = cap.read()
+        video_frame = run_frame(img)
+        yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + video_frame + b'\r\n\r\n')
+        # except:
+        #     cap.release()
+        #     cap = cv2.VideoCapture(0)
+
 
 @app.route('/video_feed')
 def video_feed():

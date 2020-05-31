@@ -38,8 +38,7 @@ def bbox(img, c):
     x, y, w, h = cv2.boundingRect(c)
     return img[y-pad:y+h+pad, x-pad:w+x+pad], (x, y)
 
-def run_frame(cap):
-    _, img = cap.read()
+def run_frame(img):
     imgc = img.copy()
     height, width, _ = img.shape
 
@@ -72,8 +71,7 @@ def run_frame(cap):
                 mask = mask.astype('float32')
                 mask /= 255
                 #feed image into model
-                prediction = model.predict(
-                    mask.reshape(1, dimData))[0].tolist()
+                prediction = model.predict(mask.reshape(1, dimData))[0].tolist()
 
                 #create text --> go from categorical labels to the word for the shape.
                 text = ''
@@ -102,4 +100,5 @@ def run_frame(cap):
                     imgc[imgc.shape[0]-200:imgc.shape[0], img.shape[1]-200:img.shape[1]
                          ] = cv2.cvtColor(cv2.resize(roi, (200, 200)), cv2.COLOR_GRAY2BGR)
 
-    cv2.imshow('img', imgc)
+    ret, jpeg = cv2.imencode('.jpg', imgc)
+    return jpeg.tobytes()
