@@ -5,11 +5,10 @@
         <div class="row my-3">
             <div class="col-md">
                 <img src="{{ url_for('video_feed') }}" id="videofeed" width="100%">
-                <!-- <img src="static/media/video_feed.jpg" height="553px" width="100%"> -->
                 <button class="btn btn-primary mt-3" id="start_detection">Start Detection</button>
             </div>
             <div class="col-md" id="right">
-                
+                <button class="btn btn-primary float-md-right mt-3" id="close_result">Close</button>
             </div>
         </div>
     </div>
@@ -18,6 +17,8 @@
 {% block ajaxScriptLink %}
 <script type="text/javascript">
     $(function () {
+        $("#close_result").hide();
+
         $('#start_detection').bind('click', function () {
             $.ajax({
                 url: "/get_json",

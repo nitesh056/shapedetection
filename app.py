@@ -10,12 +10,10 @@ app = Flask(__name__)
 
 # db = SQLAlchemy(app)
 
-# @app.route('/get_json', methods=['POST'])
-# def gettingJson():
-#     vid = VideoCamera()
-#     vid.get_frame()
-#     shape = vid.getShape()
-#     return jsonify({'data': render_template('json.html', data=shape)})
+@app.route('/get_json', methods=['POST'])
+def gettingJson():
+    shape = run_frame(cv2.VideoCapture(0), True)
+    return jsonify({'data': render_template('json.html', data=shape)})
 
 @app.route('/')
 def index():
@@ -26,16 +24,15 @@ def start_detection():
     return render_template('detection.html')
 
 def gen():
-    cap=cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(0)
     while True:
-        _, img = cap.read()
-        video_frame = run_frame(img)
-        yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + video_frame + b'\r\n\r\n')
-        # except:
-        #     cap.release()
-        #     cap = cv2.VideoCapture(0)
-
+        try:        
+            video_frame = run_frame(cap)
+            yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + video_frame + b'\r\n\r\n')
+        except:
+            cap.release()
+            cap = cv2.VideoCapture(0)
 
 @app.route('/video_feed')
 def video_feed():
