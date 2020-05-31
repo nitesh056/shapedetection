@@ -38,10 +38,66 @@ def bbox(img, c):
     x, y, w, h = cv2.boundingRect(c)
     return img[y-pad:y+h+pad, x-pad:w+x+pad], (x, y)
 
+def get_hsv_range(frame):
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    min_h = min_s = min_v = max_h = max_s = max_v = 0
+    for point in all_points:
+        px = frame[point]
+        px_array = np.uint8([[px]])
+        px_hsv = cv2.cvtColor(px_array, cv2.COLOR_BGR2HSV)
+        if (min_h > px_hsv[0][0][0]) | (min_h == 0):
+            min_h = px_hsv[0][0][0]
+        if (min_s > px_hsv[0][0][1]) | (min_s == 0):
+            min_s = px_hsv[0][0][1]
+        if (min_v > px_hsv[0][0][2]) | (min_v == 0):
+            min_v = px_hsv[0][0][2]
+        if (max_h < px_hsv[0][0][0]) | (max_h == 0):
+            max_h = px_hsv[0][0][0]
+        if (max_s < px_hsv[0][0][1]) | (max_s == 0):
+            max_s = px_hsv[0][0][1]
+        if (max_v < px_hsv[0][0][2]) | (max_v == 0):
+            max_v = px_hsv[0][0][2]
+
+    min_h = (min_h-20 if min_h-20 > 0 else 0)
+    min_s = (min_s-20 if min_s-20 > 0 else 0)
+    min_v = (min_v-20 if min_v-20 > 0 else 0)
+    max_h = (max_h+20 if max_h+20 < 180 else 180)
+    max_s = (max_s+20 if max_s+20 < 255 else 255)
+    max_v = (max_v+20 if max_v+20 < 255 else 255)
+
+    return min_h, min_s, min_v, max_h, max_s, max_v
+
+
+def getVideoInfo(self):
+    _, frame = self.video.read()
+    self.height = frame.shape[0]
+    self.width = frame.shape[1]
+
+    self.half_height = int(self.height / 2)
+    self.half_width = int(self.width / 2)
+
+    self.five_percent_height = int(self.height * 0.025)
+    self.five_percent_width = int(self.width * 0.025)
+
+    self.center_point = self.half_height, self.half_width
+    self.upper_left_point = self.half_height - \
+        self.five_percent_height, self.half_width - self.five_percent_width
+    self.upper_right_point = self.half_height - \
+        self.five_percent_height, self.half_width + self.five_percent_width
+    self.lower_left_point = self.half_height + \
+        self.five_percent_height, self.half_width - self.five_percent_width
+    self.lower_right_point = self.half_height + \
+        self.five_percent_height, self.half_width + self.five_percent_width
+
+    self.all_points = [self.center_point, self.upper_left_point, self.upper_right_point, self.lower_left_point, self.lower_right_point]
+
+
+
 def run_frame(img):
     imgc = img.copy()
     height, width, _ = img.shape
 
+    hsvRangeTuple = get_hsv_range(img)
     #mask of the green regions in the image
     _, mask = only_color(img, hsvRangeTuple)
 
