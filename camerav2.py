@@ -9,7 +9,7 @@ from keras.layers import Dropout
 img_size = 60
 hsvRangeTuple = (165, 47, 113, 180, 171, 225)
 pad = 60
-model = load_model('D:/opencv/data/shapesmodel.h5')
+model = load_model('E:/reitz/3rd year/Project & Professionalism with Computer/shapedetection/data/shapesmodel.h5')
 dimData = np.prod([img_size, img_size])
 all_points = [(240, 320), (228, 304), (228, 336), (252, 304), (252, 336)]
 
@@ -101,6 +101,7 @@ def run_frame(cap, get_shape=False):
 
                 cv2.drawContours(imgc, c, -1, (0, 0, 255), 1)
 
+                cv2.rectangle(imgc, (306, 230), (338, 254), (0, 255, 0), 2)
                 #draw the text
                 org, font, color = (coords[0], coords[1]+int(area/400)), cv2.FONT_HERSHEY_SIMPLEX, (0, 0, 255)
                 cv2.putText(imgc, text, org, font, int(2.2*area/15000), color, int(6*th), cv2.LINE_AA)

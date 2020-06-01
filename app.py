@@ -24,7 +24,7 @@ def start_detection():
     return render_template('detection.html')
 
 def gen():
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(1)
     while True:
         try:        
             video_frame = run_frame(cap)

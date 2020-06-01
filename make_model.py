@@ -7,7 +7,7 @@ import numpy as np
 import os
 
 #parameters
-working_dir = "D:/opencv/data/"
+working_dir = "E:/reitz/3rd year/Project & Professionalism with Computer/shapedetection/data/"
 os.chdir(working_dir)
 img_size = 60  # size of image fed into model
 
@@ -83,4 +83,4 @@ history = model.fit(train_data, train_labels_one_hot, batch_size=256, epochs=50,
 print("Evaluation result on Test Data : Loss = {}, accuracy = {}".format(
     test_loss, test_acc))
 #save model
-model.save('D:/opencv/data/shapesmodel.h5')
+model.save('E:/reitz/3rd year/Project & Professionalism with Computer/shapedetection/data/shapesmodel.h5')
