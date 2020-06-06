@@ -1,0 +1,26 @@
+<div class="row" id="from_response">
+    {% if shapeDetected %}
+    <div class="col-sm-8">
+        <div class="row py-2">
+            {% for trafficSign in trafficSigns %}
+                <div class="col-sm-6">
+                    <img src="static/media/{{ trafficSign.image_name }}" width="100%">
+                    <p class="sign-name text-center">{{ trafficSign.name }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-4 px-3">
+        <div class="card p-2 h-100">
+            {% for signCat in signCategorization %}
+            <h3 class="text-center">Description of {{ signCat.categorization }}</h3>
+            <p id="text">
+                {{ signCat.description }}
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        <h1 class="display">Shape not recognized</h1>
+    {% endif %}
+</div>

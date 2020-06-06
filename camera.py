@@ -7,9 +7,9 @@ from keras.layers import Dense
 from keras.layers import Dropout
 
 img_size = 60
-hsvRangeTuple = (165, 47, 113, 180, 171, 225)
 pad = 60
-model = load_model('E:/reitz/3rd year/Project & Professionalism with Computer/shapedetection/data/shapesmodel.h5')
+# model = load_model('E:/reitz/3rd year/Project & Professionalism with Computer/shapedetection/data/shapesmodel.h5')
+model = load_model('D:/opencv/data/shapesmodel.h5')
 dimData = np.prod([img_size, img_size])
 all_points = [(240, 320), (228, 304), (228, 336), (252, 304), (252, 336)]
 
