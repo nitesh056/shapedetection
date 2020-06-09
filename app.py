@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, Response, jsonify
 import cv2
-from models import *
 from camera import *
 
 app = Flask(__name__)
@@ -25,16 +24,14 @@ class SignCategorization(db.Model):
     shape = db.Column(db.String(10))
     description = db.Column(db.String(100))
 
-@app.route('/get_json', methods=['POST'])
+@app.route('/get_json', methods=['GET'])
 def gettingJson():
     shape = run_frame(cv2.VideoCapture(0), True)
     if shape != '':
-        print(shape)
         trafficSigns = TrafficSign.query.filter_by(shape=shape)
         signCategorizations = SignCategorization.query.filter_by(shape=shape)
         return jsonify({'data': render_template('shapeDescription.html', shapeDetected=True, trafficSigns=trafficSigns, signCategorization=signCategorizations)})
     else:
-        print(shape)
         return jsonify({'data': render_template('shapeDescription.html', shapeDetected=False)})
 
 @app.route('/')

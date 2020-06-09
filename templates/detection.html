@@ -23,7 +23,7 @@
         $('#start_detection').bind('click', function () {
             $.ajax({
                 url: "/get_json",
-                type: "POST",
+                type: "GET",
                 success: function(resp){
                     $("#from_response").remove();
                     $("#right").prepend(resp.data);
