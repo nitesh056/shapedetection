@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Shape detection{% endblock %}
+{% block title %}Shape Detection{% endblock %}
 {% block content %}
-    <div class="container-fluid">
-        <div class="row my-3">
+    <div class="container-fluid detection-background">
+        <div class="row py-3">
             <div class="col-md">
                 <img src="{{ url_for('video_feed') }}" id="videofeed" width="100%">
                 <button class="btn btn-primary mt-3" id="start_detection">Start Detection</button>

@@ -1,18 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Traffic Sign Shape Detector{% endblock %}
+{% block title %}Home{% endblock %}
 {% block content %}
-<header>
-    <div class="container h-100 w-auto">
-        <div class="landing h-100 align-items-center justify-content-center text-center">
-            <h1 class="font-weight-bold m-0">ABOUT THIS SYSTEM</h1>
-            <hr class="divider m-2" />
-            <p class="">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ex ipsum nostrum corporis,
-                possimus voluptatibus eveniet illo pariatur iure ratione placeat odio aliquid
-                perferendis dolor dicta totam, sint neque voluptatem adipisci.
+<div class="showcase">
+    <div class="container h-100 w-50">
+        <div class="landing align-items-center justify-content-center text-center">
+            <h1 class="font-weight-bold m-0">TRAFFIC SIGN<br>SHAPE DETECTOR</h1>
+            <hr class="divider m-2"/>
+            <p>
+                Traffic sign shape detector is a web app where you can get the information of the different categorised traffic sign. It
+                detects the traffic sign based on its shape.
             </p>
-            <a class="btn btn-xl btn-primary mt-5" href="/detection">Start Detection</a>
+            <a class="btn btn-xl btn-primary" href="/detection">Start Detection</a> <br>
+            <img src="static/media/img.png" class="mt-4" height="200px" alt="">
         </div>
     </div>
-</header>
+</div>
 {% endblock %}

@@ -5,3 +5,31 @@
 .sign-name{
     font-size: 24px;
 }
+
+.navbar{
+    background-color: #10316b !important;
+}
+
+.showcase{
+    position: fixed;
+    background: url(/static/media/background.jpg);
+    background-size: cover;
+    background-position: top;
+    height: 92vh;
+    position: relative;
+}
+
+.detection-background{
+    position: fixed;
+    background-size: cover;
+    background-position: top;
+    height: 92vh;
+    position: relative;
+    background-color: #ccc !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .showcase{
+        height: auto;
+    }
+}
